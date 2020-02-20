@@ -70,6 +70,7 @@
 					</c:when>
 					<c:when test="${pageNo>2 }">
 						<c:set var="start" value="${pageNo-2 }" />
+						<c:set var="end" value="${start+4 }"/>
 					</c:when>
 					
 				</c:choose>
