@@ -27,7 +27,7 @@
 						name="kwd" value=""> <input type="submit" value="찾기">
 					<input type="hidden" name="a" value="search">
 				</form>
-
+				
 				<table class="tbl-ex">
 					<tr>
 						<th>번호</th>
@@ -63,15 +63,17 @@
 
 				</table>
 				<c:set var="block" value="1" />
-				<c:choose>
+			<c:choose>
 					<c:when test="${pageNo<=2 }">
 						<c:set var="start" value="${1 }" />
+						<c:set var="end" value="${start+4 }" />
 					</c:when>
 					<c:when test="${pageNo>2 }">
 						<c:set var="start" value="${pageNo-2 }" />
 					</c:when>
 					
 				</c:choose>
+				
 				<c:set var="pageN" value="${start }" />
 				<c:choose>
 					<c:when test ="${pageNo==maxPage }">
@@ -79,24 +81,33 @@
 						<c:set var="start" value="${pageNo-4 }" />					
 					</c:when>
 					<c:when test = "${pageNo==(maxPage-1) }">
-						<c:set var="end" value="${maxPage-3 }" />	
-						<c:set var="start" value="${pageNo-5 }" />
+							<c:set var="start" value="${1 }" />					
+							<c:set var="end" value="${maxPage }" />								
+						
+						<c:if test="${(maxPage-1)>2}">
+							<c:set var="end" value="${maxPage }" />	
+							<c:set var="start" value="${pageNo-2 }" />
+						</c:if>
+	
 					</c:when>
 					<c:when test ="${pageNo!=maxPage }">
 						<c:set var="end" value="${start+4 }" />
 					</c:when>
-				
 				</c:choose>		
+				
+				
+
 				<div class="pager">
 					<ul>
 					
 						<li><a
 							href="${pageContext.request.contextPath }/board?a=paging&page=${pageNo-1}">◀</a></li>
-						
+							
 
 							<c:forEach begin="${start }" end="${end }" varStatus="status">
+							
 								<li><a
-									href="${pageContext.request.contextPath }/board?a=paging&page=${pageN}"><c:if test="${pageN == pageNo }"><span style="color:red"></c:if>${pageN }</a></li>
+									href="${pageContext.request.contextPath }/board?a=paging&page=${pageN }"><c:if test="${pageN == pageNo }"><span style="color:red"></c:if>${pageN }</a></li>
 								<c:set var="pageN" value="${pageN+1 }" />
 							</c:forEach>
 						
@@ -104,12 +115,13 @@
 						<li>
 						<c:choose>
 							<c:when test ="${maxPage!=pageNo }">
-								<a	href="${pageContext.request.contextPath }/board?a=paging&page=${pageNo+1}">▶</a></li>
+								<a	href="${pageContext.request.contextPath }/board?a=paging&page=${pageNo+1}">▶</a>
 							</c:when>
 							<c:when test ="${maxPage==pageNo }">
 								▶
 							</c:when>
 						</c:choose>	
+						</li>
 					</ul>
 				</div>
 
