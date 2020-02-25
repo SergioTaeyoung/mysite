@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import org.springframework.stereotype.Repository;
 
+import com.douzone.mysite.exception.UserRepositoryException;
 import com.douzone.mysite.vo.UserVo;
 
 @Repository
@@ -36,7 +37,7 @@ public class UserRepository {
 			count = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("error :" + e);
+			throw new UserRepositoryException(e.getMessage());
 		} finally {
 			// 자원 정리
 			try {
@@ -47,7 +48,7 @@ public class UserRepository {
 					conn.close();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new UserRepositoryException(e.getMessage());
 			}
 		}
 
@@ -61,7 +62,7 @@ public class UserRepository {
 			String url = "jdbc:mysql://192.168.1.98:3307/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 		} catch( ClassNotFoundException e ) {
-			System.out.println( "드러이버 로딩 실패:" + e );
+			throw new UserRepositoryException(e.getMessage());
 		} 
 		
 		return conn;
@@ -97,7 +98,7 @@ public class UserRepository {
 				userVo.setName(name);
 			}
 		} catch (SQLException e) {
-			System.out.println("error :" + e);
+			throw new UserRepositoryException(e.getMessage());
 		} finally {
 			// 자원 정리
 			try {
@@ -119,7 +120,7 @@ public class UserRepository {
 	}
 
 	public UserVo find(Long no) {
-UserVo userVo = null;
+		UserVo userVo = null;
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -131,10 +132,10 @@ UserVo userVo = null;
 			String sql =
 				"select no, name, email, gender" +
 				"  from user" + 
-				" where no = ?";				
+				" where no = ?";
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setLong(1, no);			
+			pstmt.setLong(1, no);
 			rs = pstmt.executeQuery();
 
 			if(rs.next()) {
@@ -145,7 +146,7 @@ UserVo userVo = null;
 				userVo.setGender(rs.getString(4));
 			}
 		} catch (SQLException e) {
-			System.out.println("error :" + e);
+			throw new UserRepositoryException(e.getMessage());
 		} finally {
 			// 자원 정리
 			try {
@@ -164,6 +165,5 @@ UserVo userVo = null;
 		}		
 		
 		return userVo;
-		
 	}
 }

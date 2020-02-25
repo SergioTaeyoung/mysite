@@ -30,7 +30,6 @@ public class GuestBookService {
 		GuestBookVo vo = new GuestBookVo();
 		vo.setNo(no);
 		vo.setPassword(password);
-		System.out.println("!!!" + no + "!!!" + password);
 		boolean result = guestbookRepository.delete(vo);
 		return result;		
 	}
