@@ -21,8 +21,8 @@ public class BoardService {
 		model.addAttribute("list", list);	
 	}
 	
-	public void pagingList(Model model) {
-		List<BoardVo> list = boardRepository.pagingList(0,5);
+	public void pagingList(Model model,  @PathVariable("pageNo") int pageNo) {
+		List<BoardVo> list = boardRepository.pagingList((pageNo-1)*5,5);
 		model.addAttribute("list", list);	
 	}
 

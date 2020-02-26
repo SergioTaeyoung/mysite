@@ -53,7 +53,7 @@
 							</td>
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
-							<td>${vo.regDate }▶=${maxPage}= =${pageNo }=</td>
+							<td>${vo.regDate }</td>
 							<td><c:if test="${authUser.name==vo.name }">
 									<img
 											src='${pageContext.request.contextPath }/assets/images/recycle.png'>
