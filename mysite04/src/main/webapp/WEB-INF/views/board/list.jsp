@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 	pageContext.setAttribute("newLine", "\n");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -35,16 +36,16 @@
 						<th>글쓴이</th>
 						<th>조회수</th>
 						<th>작성일</th>
-						<th>&nbsp;</th>
+						<th>삭제</th>
 					</tr>
-					<c:set var='listcount' value='${totalCount }' />
+					<c:set var='listcount' value='${totalcount }' />
 					<c:forEach var="vo" varStatus="status" items="${list }">
 						<tr>
 
 							<td>${listcount-(status.index+(pageNo-1)*5) }</td>
 							<td style="text-align:left; padding-left:${20*vo.depth }px">
 								<a
-								href="${pageContext.request.contextPath }/board?a=view&no=${vo.no}&name=${vo.name}">
+								href="${pageContext.request.contextPath }/board/view/${vo.no}">
 									<c:if test="${(vo.depth)!='0' }">
 										<img
 											src='${pageContext.request.contextPath }/assets/images/reply.png'>
@@ -54,15 +55,17 @@
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
 							<td><c:if test="${authUser.name==vo.name }">
-									<a
-										href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no}"
+									<img
+											src='${pageContext.request.contextPath }/assets/images/recycle.png'>
+									<a							
+										href="${pageContext.request.contextPath }/board/delete/${vo.no}"
 										class="del">삭제</a>
 								</c:if></td>
 						</tr>
 					</c:forEach>
 
 				</table>
-				<c:set var="block" value="1" />
+				
 				<c:choose>
 					<c:when test="${pageNo<=2 }">
 						<c:set var="start" value="${1 }" />
@@ -104,13 +107,13 @@
 					<ul>
 
 						<li><a
-							href="${pageContext.request.contextPath }/board?a=paging&page=${pageNo-1}">◀</a></li>
+							href="${pageContext.request.contextPath }/board/paging/${pageNo-1}">◀</a></li>
 
 
 						<c:forEach begin="${start }" end="${end }" varStatus="status">
 
 							<li><a
-								href="${pageContext.request.contextPath }/board?a=paging&page=${pageN }"><c:if
+								href="${pageContext.request.contextPath }/board/paging/${pageN }"><c:if
 										test="${pageN == pageNo }">
 										<span style="color: red">
 									</c:if>${pageN }</a></li>
@@ -121,7 +124,7 @@
 						<li><c:choose>
 								<c:when test="${maxPage!=pageNo }">
 									<a
-										href="${pageContext.request.contextPath }/board?a=paging&page=${pageNo+1}">▶</a>
+										href="${pageContext.request.contextPath }/board/paging/${pageNo+1}">▶</a>
 								</c:when>
 								<c:when test="${maxPage==pageNo }">
 								▶
@@ -138,7 +141,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="bottom">
-							<a href="${pageContext.request.contextPath }/board?a=write"
+							<a href="${pageContext.request.contextPath }/board/write"
 								id="new-book">글쓰기</a>
 						</div>
 					</c:otherwise>

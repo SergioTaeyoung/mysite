@@ -75,8 +75,7 @@ public class UserController {
 		///////////////////////////////////////////////////////////
 		
 		Long no = authUser.getNo();
-		UserVo vo = userService.getUser(no);
-		
+		UserVo vo = userService.getUser(no);		
 		model.addAttribute("userVo", vo);
 		return "user/update";
 	}
@@ -89,10 +88,13 @@ public class UserController {
 			return "redirect:/";
 		}
 		///////////////////////////////////////////////////////////
-		userVo.setNo(authUser.getNo());
+		userVo.setNo(authUser.getNo());		
+		
 		userService.updateUser(userVo);
 		
-		return "redirect:/user/update";
+		
+		
+		return "redirect:/";
 	}
 	
 //	@ExceptionHandler(Exception.class)

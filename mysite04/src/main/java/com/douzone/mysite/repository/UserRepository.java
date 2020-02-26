@@ -33,8 +33,7 @@ public class UserRepository {
 		return sqlSession.selectOne("user.find", no);
 	}
 
-	public int update(UserVo userVo) {
-		System.out.println(userVo);
-		return sqlSession.selectOne("user.update", userVo);
+	public int update(UserVo userVo) {		
+		return sqlSession.update("user.update", userVo);
 	}
 }

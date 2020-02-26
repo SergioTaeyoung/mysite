@@ -16,10 +16,10 @@
 		</div>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/write/${authUser.no}">
 					<input type = "hidden" name = "a" value="write_check">
 					<input type = "hidden" name = "name" value="${authUser.name }">
-					<input type = "hidden" name = "userno" value="${authUser.no }">
+					<input type = "text" name = "userNo" value="${authUser.no }">
 					<input type = "hidden" name = "child" value="${child }">
 					<input type = "hidden" name = "no" value="${no }">
 					<table class="tbl-ex">
@@ -33,7 +33,7 @@
 						<tr>
 							<td class="label">내용</td>
 							<td>
-								<textarea id="content" name="content"></textarea>
+								<textarea id="content" name="contents"></textarea>
 							</td>
 						</tr>
 					</table>
