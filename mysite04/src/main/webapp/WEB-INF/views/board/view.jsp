@@ -40,7 +40,7 @@
 				</table>
 				<div class="bottom">
 					
-					<a href="${pageContext.request.contextPath }/board?a=write&child=y&no=${vo.no}" id="new-book">글쓰기
+					<a href="${pageContext.request.contextPath }/board/write/${no}" id="new-book">글쓰기
 						<!-- id="new-book">글쓰기 <input type="hidden" name="child" value="y"> -->
 
 					</a> <a href="${pageContext.request.contextPath }/board">글목록 </a>

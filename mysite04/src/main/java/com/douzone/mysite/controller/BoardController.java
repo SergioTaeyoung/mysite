@@ -21,8 +21,23 @@ public class BoardController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String list(Model model) {
 		String pageNo = "1";
-		boardService.boardList(model);
-		model.addAttribute("pageNo", pageNo);	
+		boardService.boardList(model);		
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("totalcount", boardService.totalCount());
+		model.addAttribute("maxPage", boardService.maxCount());
+		return "board/list";
+	}
+	
+	@RequestMapping(value = "paging/{pageNo}", method = RequestMethod.GET)
+	public String pagingList( @PathVariable("pageNo") int pageNo,Model model) {
+		System.out.println(pageNo);
+		boardService.pagingList(model);
+		
+		model.addAttribute("maxPage", boardService.maxCount());
+		
+		
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("totalcount", boardService.totalCount());
 		return "board/list";
 	}
 	

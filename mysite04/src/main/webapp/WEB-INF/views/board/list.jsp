@@ -53,7 +53,7 @@
 							</td>
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
-							<td>${vo.regDate }</td>
+							<td>${vo.regDate }▶=${maxPage}= =${pageNo }=</td>
 							<td><c:if test="${authUser.name==vo.name }">
 									<img
 											src='${pageContext.request.contextPath }/assets/images/recycle.png'>
@@ -105,11 +105,15 @@
 
 				<div class="pager">
 					<ul>
-
-						<li><a
-							href="${pageContext.request.contextPath }/board/paging/${pageNo-1}">◀</a></li>
-
-
+						
+						<li><c:choose>
+						<c:when test = "${pageNo !=1 }">
+							<a href="${pageContext.request.contextPath }/board/paging/${pageNo-1}">◀</a></li>
+						</c:when>
+						<c:when test = "${pageNo ==1 }">
+							
+						</c:when>
+						</c:choose>
 						<c:forEach begin="${start }" end="${end }" varStatus="status">
 
 							<li><a
@@ -127,7 +131,7 @@
 										href="${pageContext.request.contextPath }/board/paging/${pageNo+1}">▶</a>
 								</c:when>
 								<c:when test="${maxPage==pageNo }">
-								▶
+								
 							</c:when>
 							</c:choose></li>
 					</ul>

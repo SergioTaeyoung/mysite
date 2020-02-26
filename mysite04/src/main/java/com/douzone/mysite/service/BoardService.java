@@ -17,7 +17,12 @@ public class BoardService {
 	private BoardRepository boardRepository;
 
 	public void boardList(Model model) {
-		List<BoardVo> list = boardRepository.findAll();
+		List<BoardVo> list = boardRepository.pagingList(0,5);
+		model.addAttribute("list", list);	
+	}
+	
+	public void pagingList(Model model) {
+		List<BoardVo> list = boardRepository.pagingList(0,5);
 		model.addAttribute("list", list);	
 	}
 
@@ -47,6 +52,20 @@ public class BoardService {
 	public void boardHit(BoardVo vo, Long no) {
 		vo.setNo(no);
 		boardRepository.hit(vo);		
+	}
+
+	public int totalCount() {
+		int total = boardRepository.getTotalCount();
+		return total;
+		
+		
+	}
+
+	public double maxCount() {
+		int tot = boardRepository.getTotalCount();
+		double maxPage = tot/5.0;
+		maxPage = Math.ceil(maxPage);
+		return maxPage;		
 	}
 
 
