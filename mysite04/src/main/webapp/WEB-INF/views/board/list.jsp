@@ -45,7 +45,7 @@
 							<td>${listcount-(status.index+(pageNo-1)*5) }</td>
 							<td style="text-align:left; padding-left:${20*vo.depth }px">
 								<a
-								href="${pageContext.request.contextPath }/board/view/${vo.no}">
+								href="${pageContext.request.contextPath }/board/view/${vo.no}/${vo.name}">
 									<c:if test="${(vo.depth)!='0' }">
 										<img
 											src='${pageContext.request.contextPath }/assets/images/reply.png'>

@@ -26,10 +26,12 @@ public class BoardController {
 		return "board/list";
 	}
 	
-	@RequestMapping(value = "view/{vo.no}", method = RequestMethod.GET)
-	public String view(@PathVariable("vo.no") Long no, Model model) {
+	@RequestMapping(value = "view/{vo.no}/{vo.name}", method = RequestMethod.GET)
+	public String view(@PathVariable("vo.no") Long no, @PathVariable("vo.name") String name, Model model, BoardVo vo) {
 		model.addAttribute("no", no);
+		model.addAttribute("name", name);
 		boardService.boardView(no, model);
+		boardService.boardHit(vo, no);
 		return "board/view";
 	}
 	
@@ -53,5 +55,16 @@ public class BoardController {
 		return "board/write";
 	}
 
+	@RequestMapping(value = "modify/{vo.no}", method = RequestMethod.GET)
+	public String modify(@PathVariable("vo.no") Long no, Model model) {
+		model.addAttribute("no",no);
+		return "board/modify";
+	}
 	
+	@RequestMapping(value = "modify/{vo.no}", method = RequestMethod.POST)
+	public String modify(@PathVariable("vo.no") Long no, Model model, BoardVo vo) {
+		model.addAttribute("no",no);
+		boardService.boardUpdate(no, vo);		
+		return "board/modify";
+	}
 }

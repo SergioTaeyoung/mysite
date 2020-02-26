@@ -31,27 +31,22 @@ public class BoardService {
 		
 	}
 
-//	public void boardWrite(BoardVo vo) {
-////		int maxGno = boardRepository.findMaxGNo();		
-////		
-////		vo.setTitle(title);
-////		vo.setContents(content);
-////		vo.setName(name);
-////		vo.setHit(0);
-////		vo.setGroupNo(maxGno + 1);
-////		vo.setGroupOrNo(1);
-////		vo.setDepth(0);
-////		vo.setUserNo(userNo);		
-//		
-//		BoardVo list = boardRepository.insert(vo);			
-//	}
-
 	public void boardWrite(@PathVariable("userNo") Long userNo, BoardVo vo) {
-		vo.setGroupNo(boardRepository.findMaxGNo());
-		vo.setUserNo(userNo);
-		System.out.println("!!!"+userNo);
+		vo.setGroupNo(boardRepository.findMaxGNo()+1);
+		vo.setUserNo(userNo);		
 		BoardVo list = boardRepository.insert(vo);
 		
+	}
+
+	public void boardUpdate(@PathVariable("vo.no") Long no, BoardVo vo) {
+		vo.setNo(no);
+		boardRepository.update(vo);
+				
+	}
+
+	public void boardHit(BoardVo vo, Long no) {
+		vo.setNo(no);
+		boardRepository.hit(vo);		
 	}
 
 

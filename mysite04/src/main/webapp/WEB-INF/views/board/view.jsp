@@ -43,7 +43,7 @@
 					<a href="${pageContext.request.contextPath }/board?a=write&child=y&no=${vo.no}" id="new-book">글쓰기
 						<!-- id="new-book">글쓰기 <input type="hidden" name="child" value="y"> -->
 
-					</a> <a href="${pageContext.request.contextPath }/board">글목록</a>
+					</a> <a href="${pageContext.request.contextPath }/board">글목록 </a>
 					<c:if test="${name == authUser.name }">
 						<a
 							href="${pageContext.request.contextPath }/board/modify/${vo.no}">글수정</a>
