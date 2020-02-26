@@ -32,4 +32,9 @@ public class UserRepository {
 	public UserVo find(Long no) {
 		return sqlSession.selectOne("user.find", no);
 	}
+
+	public int update(UserVo userVo) {
+		System.out.println(userVo);
+		return sqlSession.selectOne("user.update", userVo);
+	}
 }
