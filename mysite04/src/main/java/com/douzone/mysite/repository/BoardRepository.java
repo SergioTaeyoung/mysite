@@ -21,65 +21,9 @@ public class BoardRepository {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	public List<BoardVo> findAll() {
-		List<BoardVo> list = new ArrayList<>();
-
-		Connection conn = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-		
-			String sql = "select a.no, title, contents, hit, reg_date, g_no, o_no, depth, user_no, b.name from board a, user b where a.user_no = b.no order by g_no desc, o_no asc";
-			pst = conn.prepareStatement(sql);
-
-			rs = pst.executeQuery();
-
-			while (rs.next()) {
-				Long no = rs.getLong(1);
-				String title = rs.getString(2);
-				String contents = rs.getString(3);
-				int hit = rs.getInt(4);
-				String regDate = rs.getString(5);
-				int groupNo = rs.getInt(6);
-				int groupOrNo = rs.getInt(7);
-				int depth = rs.getInt(8);
-				Long userNo = rs.getLong(9);
-				String name = rs.getString(10);
-
-				BoardVo vo = new BoardVo();
-
-				vo.setNo(no);
-				vo.setTitle(title);
-				vo.setContents(contents);
-				vo.setHit(hit);
-				vo.setRegDate(regDate);
-				vo.setGroupNo(groupNo);
-				vo.setGroupOrNo(groupOrNo);
-				vo.setDepth(depth);
-				vo.setUserNo(userNo);
-				vo.setName(name);
-
-				list.add(vo);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// 6. 자원 정리
-			try {
-				if (rs != null)
-					rs.close();
-				if (pst != null)
-					pst.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return list;
+	
+	public List<BoardVo> findAll() {		
+		return sqlSession.selectList( "board.findAll");
 	}
 
 	public List<BoardVo> search(String kwd, String radioValue) {
@@ -183,6 +127,14 @@ public class BoardRepository {
 
 		return list;
 	}
+	
+//	public List<BoardVo> pagingList( int start, int end ) {
+//		Map<String, Integer> map = new HashMap<String, Integer>();
+//		map.put( "start", start );
+//		map.put( "end", end);		
+//		return sqlSession.selectOne( "board.pagingList", map );
+//	}
+
 	
 	public List<BoardVo> pagingList(int start, int end) {
 		List<BoardVo> list = new ArrayList<>();
@@ -494,50 +446,6 @@ public class BoardRepository {
 		return conn;
 	}
 
-//	public BoardVo findByEmailAndPassword(BoardVo vo) {
-//		BoardVo BoardVo = null;
-//		
-//		Connection conn = null;
-//		PreparedStatement pst = null;
-//		ResultSet rs = null;
-//		
-//		try {
-//			conn = getConnection();
-//			String sql = "select no, name  from user where email = ? and password = ?";
-//			pst = conn.prepareStatement(sql);
-//			
-//			pst.setString(1, vo.getEmail());
-//			pst.setString(2, vo.getPassword());
-//			
-//			rs = pst.executeQuery();
-//			
-//			if(rs.next()) {
-//				Long no = rs.getLong(1);
-//				String name = rs.getString(2);
-//				
-//				BoardVo = new BoardVo();
-//				
-//				BoardVo.setNo(no);
-//				//BoardVo.setName(name);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			// 6. 자원 정리
-//			try {
-//				if(rs != null)
-//					rs.close();
-//				if(pst != null)
-//					pst.close();
-//				if(conn !=null)
-//					conn.close();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		return BoardVo;
-//	}
 
 	public BoardVo findByNo(Long no) {
 		BoardVo BoardVo = null;
