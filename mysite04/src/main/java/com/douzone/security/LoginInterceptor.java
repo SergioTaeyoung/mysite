@@ -10,6 +10,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.douzone.mysite.service.UserService;
 import com.douzone.mysite.vo.UserVo;
 
+
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
@@ -36,6 +37,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
 		response.sendRedirect(request.getContextPath());
+		
+		
 		return false;
 	}
 

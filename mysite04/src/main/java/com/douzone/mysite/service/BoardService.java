@@ -17,12 +17,12 @@ public class BoardService {
 	private BoardRepository boardRepository;
 
 	public void boardList(Model model) {
-		List<BoardVo> list = boardRepository.pagingList(0,5);
+		List<BoardVo> list = boardRepository.pagingList(0);
 		model.addAttribute("list", list);	
 	}
 	
 	public void pagingList(Model model,  @PathVariable("pageNo") int pageNo) {
-		List<BoardVo> list = boardRepository.pagingList((pageNo-1)*5,5);
+		List<BoardVo> list = boardRepository.pagingList((pageNo-1)*5);
 		model.addAttribute("list", list);	
 	}
 
@@ -37,7 +37,7 @@ public class BoardService {
 	}
 
 	public void boardWrite(@PathVariable("userNo") Long userNo, BoardVo vo) {
-		vo.setGroupNo(boardRepository.findMaxGNo()+1);
+		vo.setGroupNo(boardRepository.getMaxGno()+1);
 		vo.setUserNo(userNo);		
 		boardRepository.insert(vo);
 		

@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.springframework.web.method.HandlerMethod;
+
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Auth {
@@ -12,6 +14,6 @@ public @interface Auth {
 	
 	public Role role() default Role.USER;
 
-	String value() default "";
+	String value() default "USER";
 	boolean test() default false;
 }

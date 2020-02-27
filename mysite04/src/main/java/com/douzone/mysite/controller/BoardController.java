@@ -61,7 +61,7 @@ public class BoardController {
 	public String write(){		
 		return "board/write";
 	}
-
+	@Auth
 	@RequestMapping(value = "write/{authUser.no}", method = RequestMethod.POST)
 	public String write(@PathVariable("authUser.no") Long userNo, BoardVo vo, Model model) {
 		model.addAttribute("userNo", userNo);
