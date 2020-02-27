@@ -47,15 +47,17 @@ public class BoardController {
 		return "board/view";
 	}
 	
-	@RequestMapping(value = "delete/{vo.no}", method = RequestMethod.GET)
-	public String delete(@PathVariable("vo.no") Long no, Model model) {
+	@RequestMapping(value = "delete/{vo.no}/{pageNo}", method = RequestMethod.GET)
+	public String delete(@PathVariable("vo.no") Long no, Model model, @PathVariable("pageNo") int pageNo) {
 		model.addAttribute("no", no);
+		model.addAttribute("pageNo",pageNo);
 		boardService.boardDelete(no, model);
-		return "redirect:/board/list";
+		pagingList(pageNo,model);
+		return "board/list";
 	}
 
 	@RequestMapping(value = "write", method = RequestMethod.GET)
-	public String write() {
+	public String write(){		
 		return "board/write";
 	}
 
@@ -66,6 +68,8 @@ public class BoardController {
 		System.out.println(vo);
 		return "board/write";
 	}
+	
+
 
 	@RequestMapping(value = "modify/{vo.no}", method = RequestMethod.GET)
 	public String modify(@PathVariable("vo.no") Long no, Model model) {

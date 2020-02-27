@@ -8,12 +8,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.mysite.vo.BoardVo;
 
 @Repository
 public class BoardRepository {
+	
+	@Autowired
+	private SqlSession sqlSession;
 	public List<BoardVo> findAll() {
 		List<BoardVo> list = new ArrayList<>();
 
@@ -384,7 +389,7 @@ public class BoardRepository {
 	
 	
 
-	public int findGNo(int no) {
+	public int findGNo(Long no) {
 		BoardVo BoardVo = null;
 
 		Connection conn = null;
@@ -457,7 +462,7 @@ public class BoardRepository {
 		return 0;
 	}
 
-	public int findONo(int no) {
+	public int findONo(Long no) {
 		BoardVo BoardVo = null;
 
 		Connection conn = null;
@@ -495,43 +500,8 @@ public class BoardRepository {
 		return 0;
 	}
 
-	public BoardVo insert(BoardVo vo) {
-		Connection conn = null;
-		PreparedStatement pst = null;
-		Boolean result = false;
-
-		try {
-			conn = getConnection();
-
-			// String sql = "insert into user values(null, ?, ?, ?, ?, sysdate())";
-			String sql = "insert into board values(null, ?, ?, ?, sysdate(), ?, ?, ?, ?)";
-
-			pst = conn.prepareStatement(sql);
-
-			pst.setString(1, vo.getTitle());
-			pst.setString(2, vo.getContents());
-			pst.setInt(3, vo.getHit());
-			pst.setInt(4, vo.getGroupNo());
-			pst.setInt(5, vo.getGroupOrNo());
-			pst.setInt(6, vo.getDepth());
-			pst.setLong(7, vo.getUserNo());
-
-			int count = pst.executeUpdate();
-
-			result = count == 1;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (pst != null)
-					pst.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return vo;
+	public int insert( BoardVo boardVo ) {
+		return sqlSession.insert( "board.insert", boardVo );
 	}
 
 	private Connection getConnection() throws SQLException {
@@ -645,40 +615,7 @@ public class BoardRepository {
 		return BoardVo;
 	}
 
-	public BoardVo update(BoardVo vo) {
-		Connection conn = null;
-		PreparedStatement pst = null;
-		Boolean result = false;
-		try {
-			conn = getConnection();
-
-			// 4.sql 문 실행
-			// String sql = "update user set name = ?, password = ? where no = ?";
-			String sql = "update board set title = ?, contents = ? where no = ?";
-			pst = conn.prepareStatement(sql);
-
-			pst.setString(1, vo.getTitle());
-			pst.setString(2, vo.getContents());
-			pst.setLong(3, vo.getNo());
-
-			int count = pst.executeUpdate();
-
-			// 5. 성공여부
-			result = count == 1;
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			// 6. 자원 정리
-			try {
-				if (pst != null)
-					pst.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return vo;
+	public int update( BoardVo boardVo ) {
+		return sqlSession.update( "board.update", boardVo );
 	}
 }

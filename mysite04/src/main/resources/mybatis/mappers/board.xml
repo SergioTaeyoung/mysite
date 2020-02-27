@@ -3,4 +3,41 @@
 
 <mapper namespace="board">	
 		
+		<insert id="insert" parameterType="boardvo">
+		
+				<![CDATA[
+			
+				insert 
+					into board 
+				values	(null, 
+							#{title }, 
+							#{contents }, 
+							0, 
+							sysdate(), 
+							#{groupNo }, 
+							#{groupOrNo}, 
+							#{depth}, 
+							#{userNo})
+				
+				]]>
+			
+	</insert>
+	
+	<update id="update" parameterType="boardVo">
+		<![CDATA[
+		update board 
+		   set title=#{title },
+		       contents=#{contents }
+		 where no=#{no }		   		
+		]]>	
+	</update>
+	
+	<delete id="delete" parameterType="map" > 
+		<![CDATA[
+		delete
+		  from board 
+		 where no = #{no }		   
+		]]>	
+	</delete>
+		
 </mapper>

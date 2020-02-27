@@ -40,8 +40,8 @@
 				</table>
 				<div class="bottom">
 					
-					<a href="${pageContext.request.contextPath }/board/write/${no}" id="new-book">글쓰기
-						<!-- id="new-book">글쓰기 <input type="hidden" name="child" value="y"> -->
+					<a href="${pageContext.request.contextPath }/board/write/${vo.no}/${authUser.no}" id="new-book">글쓰기
+						
 
 					</a> <a href="${pageContext.request.contextPath }/board">글목록 </a>
 					<c:if test="${name == authUser.name }">

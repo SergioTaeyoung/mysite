@@ -39,7 +39,7 @@ public class BoardService {
 	public void boardWrite(@PathVariable("userNo") Long userNo, BoardVo vo) {
 		vo.setGroupNo(boardRepository.findMaxGNo()+1);
 		vo.setUserNo(userNo);		
-		BoardVo list = boardRepository.insert(vo);
+		boardRepository.insert(vo);
 		
 	}
 

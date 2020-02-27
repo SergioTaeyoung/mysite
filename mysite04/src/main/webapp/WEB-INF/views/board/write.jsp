@@ -20,7 +20,7 @@
 					<input type = "hidden" name = "a" value="write_check">
 					<input type = "hidden" name = "name" value="${authUser.name }">
 					<input type = "hidden" name = "userNo" value="${authUser.no }">
-					<input type = "text" name = "ifchild" value="${child }">
+					
 					<input type = "hidden" name = "no" value="${no }">
 					<table class="tbl-ex">
 						<tr>

@@ -55,11 +55,9 @@
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
 							<td><c:if test="${authUser.name==vo.name }">
-									<img
-											src='${pageContext.request.contextPath }/assets/images/recycle.png'>
-									<a							
-										href="${pageContext.request.contextPath }/board/delete/${vo.no}"
-										class="del">삭제</a>
+									
+									<a href="${pageContext.request.contextPath }/board/delete/${vo.no}/${pageNo}"
+										class="del"><img src='${pageContext.request.contextPath }/assets/images/recycle.png'> </a>
 								</c:if></td>
 						</tr>
 					</c:forEach>
