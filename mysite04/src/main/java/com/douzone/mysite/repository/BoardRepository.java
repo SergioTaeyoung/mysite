@@ -207,39 +207,8 @@ public class BoardRepository {
 		return sqlSession.delete( "board.delete", map );
 	}
 
-	public BoardVo hit(BoardVo vo) {
-		Connection conn = null;
-		PreparedStatement pst = null;
-		Boolean result = false;
-		try {
-			conn = getConnection();
-
-			// 4.sql 문 실행
-			// String sql = "update user set name = ?, password = ? where no = ?";
-			String sql = "update board set hit = hit + 1 where no = ?";
-			pst = conn.prepareStatement(sql);
-
-			pst.setLong(1, vo.getNo());
-
-			int count = pst.executeUpdate();
-
-			// 5. 성공여부
-			result = count == 1;
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			// 6. 자원 정리
-			try {
-				if (pst != null)
-					pst.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return vo;
+	public int hit( Long no ) {
+		return sqlSession.update( "board.hit", no );
 	}
 
 	public void updateOno(int gNo, int oNo) {

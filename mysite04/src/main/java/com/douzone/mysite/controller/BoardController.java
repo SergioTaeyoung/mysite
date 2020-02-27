@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
+import com.douzone.security.Auth;
 
 
 @Controller
@@ -46,7 +47,7 @@ public class BoardController {
 		boardService.boardHit(vo, no);
 		return "board/view";
 	}
-	
+	@Auth
 	@RequestMapping(value = "delete/{vo.no}/{pageNo}", method = RequestMethod.GET)
 	public String delete(@PathVariable("vo.no") Long no, Model model, @PathVariable("pageNo") int pageNo) {
 		model.addAttribute("no", no);
@@ -55,7 +56,7 @@ public class BoardController {
 		pagingList(pageNo,model);
 		return "board/list";
 	}
-
+	@Auth
 	@RequestMapping(value = "write", method = RequestMethod.GET)
 	public String write(){		
 		return "board/write";
@@ -70,13 +71,13 @@ public class BoardController {
 	}
 	
 
-
+	@Auth
 	@RequestMapping(value = "modify/{vo.no}", method = RequestMethod.GET)
 	public String modify(@PathVariable("vo.no") Long no, Model model) {
 		model.addAttribute("no",no);
 		return "board/modify";
 	}
-	
+	@Auth
 	@RequestMapping(value = "modify/{vo.no}", method = RequestMethod.POST)
 	public String modify(@PathVariable("vo.no") Long no, Model model, BoardVo vo) {
 		model.addAttribute("no",no);

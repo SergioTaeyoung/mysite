@@ -64,8 +64,7 @@ public class UserController {
 //		session.invalidate();
 //		return "redirect:/";
 //	}
-
-	@Auth("user")
+	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(HttpSession session, Model model) {
 		////////////////////////접근제어////////////////////////
@@ -80,7 +79,7 @@ public class UserController {
 		model.addAttribute("userVo", vo);
 		return "user/update";
 	}
-	
+	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public String update(HttpSession session, UserVo userVo) {
 		////////////////////////접근제어////////////////////////

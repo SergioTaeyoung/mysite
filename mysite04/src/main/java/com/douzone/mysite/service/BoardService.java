@@ -50,8 +50,7 @@ public class BoardService {
 	}
 
 	public void boardHit(BoardVo vo, Long no) {
-		vo.setNo(no);
-		boardRepository.hit(vo);		
+		boardRepository.hit(no);		
 	}
 
 	public int totalCount() {

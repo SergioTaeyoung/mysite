@@ -64,4 +64,12 @@
 			order by g_no desc, o_no asc limit #{start}, #{end}		   				
 		]]>
 	</select>
+	
+		<update id="hit" parameterType="long">
+		<![CDATA[
+		update board
+		   set hit = hit + 1
+		 where no=#{no }
+		]]>	
+	</update>
 </mapper>
