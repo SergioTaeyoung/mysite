@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -246,39 +248,11 @@ public class BoardRepository {
 		return list;
 	}
 
-	public Boolean delete(Long no) {
-		Connection conn = null;
-		PreparedStatement pst = null;
-		Boolean result = false;
-		try {
-			conn = getConnection();
-
-			// 4.sql 문 실행
-			String sql = "delete from board where no= ?";
-
-			pst = conn.prepareStatement(sql);
-
-			pst.setLong(1, no);
-
-			int count = pst.executeUpdate();
-			result = count == 1;
-			// 5. 성공여부
-			result = count == 1;
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			// 6. 자원 정리
-			try {
-				if (pst != null)
-					pst.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
+	public int delete( Long no ) {
+		Map<String, Long> map = new HashMap<String, Long>();
+		map.put( "no", no );		
+		
+		return sqlSession.delete( "board.delete", map );
 	}
 
 	public BoardVo hit(BoardVo vo) {

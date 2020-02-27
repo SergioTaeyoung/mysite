@@ -32,7 +32,7 @@ public class BoardService {
 	}
 
 	public void boardDelete(Long no, Model model) {
-		Boolean delete = boardRepository.delete(no);
+		int delete = boardRepository.delete(no);
 		
 	}
 
