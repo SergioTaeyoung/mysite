@@ -64,7 +64,8 @@ public class BoardController {
 	@Auth
 	@RequestMapping(value = "write/{authUser.no}", method = RequestMethod.POST)
 	public String write(@PathVariable("authUser.no") Long userNo, BoardVo vo, Model model) {
-		model.addAttribute("userNo", userNo);
+		
+		model.addAttribute("userNo", userNo);		
 		boardService.boardWrite(userNo, vo);
 		System.out.println(vo);
 		return "board/write";
@@ -84,4 +85,17 @@ public class BoardController {
 		boardService.boardUpdate(no, vo);		
 		return "board/modify";
 	}
+	
+	@Auth
+	@RequestMapping( value="/reply/{vo.no}" )	
+	public String reply(@PathVariable( "vo.no" ) Long no, Model model) {
+		BoardVo boardVo = boardService.getContents( no );
+		
+		boardVo.setDepth( boardVo.getDepth() + 1 );		
+		boardVo.setGroupOrNo(boardVo.getGroupOrNo()+1);		
+		
+		model.addAttribute( "boardVo", boardVo );
+		
+		return "board/reply";
+	}	
 }

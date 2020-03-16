@@ -79,7 +79,7 @@
 				title,
 				contents,
 				g_no as groupNo,
-				o_no as orderNo,
+				o_no as groupOrNo,
 				depth,
 				user_no as userNo
 		   from board
@@ -93,7 +93,7 @@
 		update board
 		   set o_no = o_no + 1
 		 where g_no = #{groupNo }
-		   and o_no >= #{orderNo }
+		   and o_no >= #{groupOrNo }
 		]]>
 	</update>
 

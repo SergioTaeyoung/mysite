@@ -6,17 +6,26 @@ public class BoardVo {
 	private String contents;
 	private int hit;
 	private String regDate;
+	private int groupNo;
+	private int groupOrNo;
+	private int depth;
+	private long userNo;
+	private String name;
+	private int orderNo;
+	
+	public int getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	private int groupNo;
-	private int groupOrNo;
-	private int depth;
-	private long userNo;
-	private String name;
+
 	public Long getNo() {
 		return no;
 	}

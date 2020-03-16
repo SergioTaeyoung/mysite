@@ -37,9 +37,16 @@ public class BoardService {
 	}
 
 	public void boardWrite(@PathVariable("userNo") Long userNo, BoardVo vo) {
+		if(vo.getDepth()==0) {
 		vo.setGroupNo(boardRepository.getMaxGno()+1);
-		vo.setUserNo(userNo);		
+		vo.setUserNo(userNo);
 		boardRepository.insert(vo);
+		}
+		else {
+			vo.setUserNo(userNo);
+			boardRepository.insert(vo);
+			boardRepository.updateOrderNo(vo.getGroupNo(), vo.getGroupOrNo());
+		}
 		
 	}
 
@@ -65,6 +72,15 @@ public class BoardService {
 		double maxPage = tot/5.0;
 		maxPage = Math.ceil(maxPage);
 		return maxPage;		
+	}
+
+	public BoardVo getContents( Long no ) {
+		BoardVo boardVo = boardRepository.findByNo( no );
+		
+		if( boardVo != null ) {
+			boardRepository.hit(no);
+		}		
+		return boardVo;
 	}
 
 

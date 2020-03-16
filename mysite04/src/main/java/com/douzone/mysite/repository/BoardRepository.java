@@ -148,10 +148,10 @@ public class BoardRepository {
 		return sqlSession.update( "board.hit", no );
 	}
 	
-	public int updateOrderNo( Integer groupNo, Integer orderNo ) {
+	public int updateOrderNo( Integer groupNo, Integer groupOrNo ) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put( "groupNo", groupNo );
-		map.put( "orderNo", orderNo );
+		map.put( "groupOrNo", groupOrNo );
 		
 		return sqlSession.update( "board.updateOrederNo", map );
 	}	
