@@ -44,8 +44,9 @@ public class BoardService {
 		}
 		else {
 			vo.setUserNo(userNo);
-			boardRepository.insert(vo);
 			boardRepository.updateOrderNo(vo.getGroupNo(), vo.getGroupOrNo());
+			boardRepository.insert(vo);
+			
 		}
 		
 	}

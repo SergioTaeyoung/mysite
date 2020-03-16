@@ -66,8 +66,7 @@ public class BoardController {
 	public String write(@PathVariable("authUser.no") Long userNo, BoardVo vo, Model model) {
 		
 		model.addAttribute("userNo", userNo);		
-		boardService.boardWrite(userNo, vo);
-		System.out.println(vo);
+		boardService.boardWrite(userNo, vo);		
 		return "board/write";
 	}
 	
