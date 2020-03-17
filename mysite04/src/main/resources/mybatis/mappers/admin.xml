@@ -2,19 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="admin">
-	<insert id="insert" parameterType="sitevo">
+	<update id="update" parameterType="sitevo">
 		
-				<![CDATA[
-			
-				insert 
-					into site 
-				values	(null, 
-							#{title }, 
-							#{welcomeMessage },
-							'/images/20202164154542.png',
-							#{description})										
+				<![CDATA[			
+			update site 
+			set title = #{title}, 
+			profile= #{profile},  
+			welcome_message = #{welcomeMessage},
+			description = #{description}
+			where no = 1;									
 				]]>
-	</insert>
+	</update>
 	
 	<select id="findAll" resultType="com.douzone.mysite.vo.SiteVo">
 		
