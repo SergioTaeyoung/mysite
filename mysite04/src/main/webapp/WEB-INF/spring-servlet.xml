@@ -10,13 +10,17 @@
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<!-- auto porxy -->
+	<aop:aspectj-autoproxy />
+	
 	<!-- validator, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
-			<bean class = "com.douzone.security.AuthUserHandlerMethodArgumentResolver"></bean>
+			<bean
+				class="com.douzone.security.AuthUserHandlerMethodArgumentResolver"></bean>
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
-	
+
 
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
 	<mvc:default-servlet-handler />
@@ -45,8 +49,9 @@
 	</mvc:interceptors>
 
 	<!-- mvc resources -->
-	<mvc:resources location="file:/mysite-uploads/" mapping="/images/**" />
-	
+	<mvc:resources location="file:/mysite-uploads/"
+		mapping="/images/**" />
+
 	<!-- ViewResolver 설정 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -56,7 +61,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-<!-- 멀티파트 리졸버 -->
+	<!-- 멀티파트 리졸버 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 최대업로드 가능한 바이트크기 -->

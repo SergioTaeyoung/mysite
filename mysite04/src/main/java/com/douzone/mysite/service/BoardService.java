@@ -63,9 +63,7 @@ public class BoardService {
 
 	public int totalCount() {
 		int total = boardRepository.getTotalCount();
-		return total;
-		
-		
+		return total;		
 	}
 
 	public double maxCount() {

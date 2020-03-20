@@ -16,6 +16,8 @@ public class MainController {
 	
 	@RequestMapping({"", "/main"})
 	public String index(Model model) {
+
+		
 		SiteVo vo = new SiteVo();
 		vo = adminService.List();
 		model.addAttribute("title", vo.getTitle());
