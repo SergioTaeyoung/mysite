@@ -36,4 +36,8 @@ public class UserRepository {
 	public int update(UserVo userVo) {		
 		return sqlSession.update("user.update", userVo);
 	}
+
+	public Object find(String email) {		
+		return sqlSession.selectOne("user.findByEmail",email);
+	}
 }
