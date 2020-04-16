@@ -28,10 +28,10 @@ public class GuestbookController {
 		return JsonResult.success(list);
 	}
 	
-//	@PostMapping("/add")
-//	public JsonResult add(@RequestBody GuestBookVo vo) {
-//		guestbookService.writeMessage(vo);
-//		vo.setPassword("");
-//		return JsonResult.success(vo);
-//	}
+	@PostMapping("/add")
+	public JsonResult add(@RequestBody GuestBookVo vo) {
+		guestbookService.writeMessage(vo);
+		vo.setPassword("");
+		return JsonResult.success(vo);
+	}
 }
