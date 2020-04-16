@@ -6,7 +6,8 @@
 		<![CDATA[			
 		  select no,
 		         name,
-		         contents, 
+		         contents,
+		         password, 
 		         date_format(reg_date, '%Y-%m-%d') as regDate
 		    from guestbook
 	  	order by reg_date desc
@@ -17,7 +18,8 @@
 		<![CDATA[			
 		  select no,
 		         name,
-		         contents, 
+		         contents,
+		         password, 
 		         date_format(reg_date, '%Y-%m-%d') as regDate
 		    from guestbook
 		]]>

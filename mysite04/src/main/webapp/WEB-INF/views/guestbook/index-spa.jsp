@@ -12,6 +12,27 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+/* jquery plugin */
+(function($){
+	$.fn.hello = function(){
+		console.log(this.length);
+		console.log("hello #" + this.attr('title'));
+	}
+})(jQuery);
+(function($){
+	$.fn.flash = function(){
+		var $that = $(this);
+		var isBlink = false;
+		setInterval(function(){
+			$that.css("backgroundColor",  isBlink ? "#f00" : "#aaa");
+			isBlink = !isBlink;
+		}, 1000);
+	}
+})(jQuery);
+</script>
+
+<script>
+/* guestbook spa application */
 var startNo = 0;
 var isEnd = false;
 var messageBox = function(title, message, callback){
@@ -88,14 +109,43 @@ $(function(){
 		modal: true,
 		buttons: {
 			"삭제": function(){
-				console.log("삭제!!!");
+				var no = $("#hidden-no").val();
+				var password = $("#password-delete").val();
+				
+				$.ajax({
+					url: '${pageContext.request.contextPath }/api/guestbook/delete/' + no,
+					async: true,
+					type: 'delete',
+					dataType: 'json',
+					data: 'password=' + password,
+					success: function(response){
+						if(response.result != "success"){
+							console.error(response.message);
+							return;
+						}
+						
+						if(response.data != -1){
+							$("#list-guestbook li[data-no=" + response.data + "]").remove();
+							dialogDelete.dialog('close');
+							return;
+						}
+						
+						// 비밀번호가 틀린경우
+						$("#dialog-delete-form p.validateTips.error").show();
+					},
+					error: function(xhr, status, e){
+						console.error(status + ":" + e);
+					}
+				});
 			},
 			"취소": function(){
 				$(this).dialog('close');
 			}
 		},
 		close: function(){
-			console.log("close");
+			$("#hidden-no").val("");
+			$("#password-delete").val("");
+			$("#dialog-delete-form p.validateTips.error").hide();
 		}
 	});
 	
@@ -173,13 +223,16 @@ $(function(){
 		event.preventDefault();
 		
 		var no = $(this).data('no');
-		console.log("clicked:" + no);
-		
+		$("#hidden-no").val(no);		
 		dialogDelete.dialog("open");
 	});
 	
 	// 처음 리스트 가져오기
 	fetchList();
+	
+	// jquery plugin test
+	$(".btn-fetch").hello();
+	$(".btn-fetch").flash();
 });
 </script>
 </head>
@@ -197,14 +250,14 @@ $(function(){
 				</form>
 				
 				<div style='margin:20px 0 0 0'>
-					<button class='btn-fetch'>다음 가져오기</button>
+					<button class='btn-fetch' title="다음 가져오기">다음 가져오기</button>
 				</div>
 				
 				<ul id="list-guestbook">
 				</ul>
 				
 				<div style='margin:20px 0 0 0'>
-					<button class='btn-fetch'>다음 가져오기</button>
+					<button class='btn-fetch' title="다음 가져오기">다음 가져오기</button>
 				</div>
 				
 			</div>
