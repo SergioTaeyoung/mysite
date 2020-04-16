@@ -32,7 +32,8 @@ public class GuestBookService {
 		return result;		
 	}
 
-
-	
+	public List<GuestBookVo> getMessageList(Long startNo) {
+		return guestbookRepository.findAll(startNo);
+	}	
 	
 }
