@@ -32,7 +32,16 @@ public class GuestBookService {
 		return result;		
 	}
 
-
+	public List<GuestBookVo> getMessageList(Long startNo) {
+		return guestbookRepository.findAll(startNo);
+	}
 	
+	public boolean writeMessage( GuestBookVo vo ) {
+		int count = guestbookRepository.insert(vo);
+		return count == 1;
+	}	
+	public boolean deleteMessage(Long no, String password) {		
+		return 1 == guestbookRepository.delete( new GuestBookVo(no, password) );
+	}
 	
 }

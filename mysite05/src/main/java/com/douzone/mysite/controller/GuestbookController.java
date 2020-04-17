@@ -11,43 +11,46 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.douzone.mysite.service.GuestBookService;
 import com.douzone.mysite.vo.GuestBookVo;
 
-
-
 @Controller
 @RequestMapping("/guestbook")
-public class GuestbookController {	
-	
+public class GuestbookController {
+
 	@Autowired
 	private GuestBookService guestbookService;
-	
-	@RequestMapping(value="", method=RequestMethod.GET)
+
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String list(Model model) {
-		
+
 		guestbookService.guestBookList(model);
 		return "guestbook/list";
 	}
-	
-	@RequestMapping(value="", method=RequestMethod.POST)
-	public String join(GuestBookVo vo){		
-		
+
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public String join(GuestBookVo vo) {
+
 		guestbookService.guestBookInsert(vo);
 		return "redirect:/guestbook";
 	}
-	
-	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET)
-	public String delete(@PathVariable("no") Long no,Model model) {
+
+	@RequestMapping(value = "/delete/{no}", method = RequestMethod.GET)
+	public String delete(@PathVariable("no") Long no, Model model) {
 		model.addAttribute("no", no);
 		return "guestbook/delete";
-	
-	}
-	
-	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)
-	public String delete(@PathVariable("no") Long no, @RequestParam(value="password", required=true, defaultValue="") String password) {
-		
-		int result = guestbookService.guestBookDelete(no, password);		
-		return "redirect:/guestbook";
-	
+
 	}
 
-	
+	@RequestMapping(value = "/delete/{no}", method = RequestMethod.POST)
+	public String delete(@PathVariable("no") Long no,
+			@RequestParam(value = "password", required = true, defaultValue = "") String password) {
+
+		int result = guestbookService.guestBookDelete(no, password);
+		return "redirect:/guestbook";
+
+	}
+
+	@RequestMapping("/spa")
+	public String indexSpa(Model model) {
+		return "guestbook/index-spa";
+	}
+
 }
